@@ -569,6 +569,10 @@ e.g. `{{- include "kata-deploy.commonEnv" . | nindent 8 }}`.
 - name: EXPERIMENTAL_SETUP_SNAPSHOTTER
   value: {{ $snapshotterSetup | quote }}
 {{- end }}
+{{- if .Values.snapshotter.erofsSnapshotterMode | trim }}
+- name: EROFS_SNAPSHOTTER_MODE
+  value: {{ .Values.snapshotter.erofsSnapshotterMode | trim | quote }}
+{{- end }}
 {{- $forceGuestPullAmd64 := include "kata-deploy.getForceGuestPullForArch" (dict "root" . "arch" "amd64") | trim -}}
 {{- if $forceGuestPullAmd64 }}
 - name: EXPERIMENTAL_FORCE_GUEST_PULL_X86_64
